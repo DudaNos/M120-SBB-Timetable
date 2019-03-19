@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.FlowPane?>
+<?import javafx.scene.text.Font?>
+
+
+<FlowPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="89.0" prefWidth="573.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <ImageView fitHeight="93.0" fitWidth="83.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../../../../../../../Pictures/Saved%20Pictures/Invaders/bug1.png" />
+         </image>
+      </ImageView>
+      <Label contentDisplay="CENTER" prefHeight="94.0" prefWidth="288.0" text="Zugname">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </Label>
+      <Label contentDisplay="CENTER" prefHeight="94.0" prefWidth="196.0" text="Zeit">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </Label>
+   </children>
+</FlowPane>
