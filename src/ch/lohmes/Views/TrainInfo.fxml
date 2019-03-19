@@ -6,22 +6,21 @@
 <?import javafx.scene.layout.FlowPane?>
 <?import javafx.scene.text.Font?>
 
-
-<FlowPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="89.0" prefWidth="573.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<FlowPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="41.0" prefWidth="346.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <ImageView fitHeight="93.0" fitWidth="83.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fitHeight="49.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../../../../../../../../Pictures/Saved%20Pictures/Invaders/bug1.png" />
          </image>
       </ImageView>
-      <Label contentDisplay="CENTER" prefHeight="94.0" prefWidth="288.0" text="Zugname">
+      <Label contentDisplay="CENTER" prefHeight="37.0" prefWidth="193.0" text="Zugname">
          <font>
-            <Font size="24.0" />
+            <Font size="18.0" />
          </font>
       </Label>
-      <Label contentDisplay="CENTER" prefHeight="94.0" prefWidth="196.0" text="Zeit">
+      <Label contentDisplay="CENTER" prefHeight="42.0" prefWidth="113.0" text="Zeit">
          <font>
-            <Font size="24.0" />
+            <Font size="18.0" />
          </font>
       </Label>
    </children>
