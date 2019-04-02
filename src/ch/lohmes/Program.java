@@ -15,7 +15,7 @@ public class Program extends Application {
 	@Override
 	public void start(Stage primaryStage) throws Exception {
 		Parent root = FXMLLoader.load(getClass().getResource("Views/MainWindow.fxml"));
-        primaryStage.setTitle("Registration Form FXML Application");
+        primaryStage.setTitle("SBB-Timetable");
         primaryStage.setScene(new Scene(root, 800, 500));
         primaryStage.show();
 	}
