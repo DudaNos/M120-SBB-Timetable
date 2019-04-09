@@ -6,6 +6,9 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
+
 public class APICaller {
 
 	private HttpURLConnection con;
@@ -14,7 +17,7 @@ public class APICaller {
 		
 	}
 	
-	public void getConnections(String from, String to) {
+	public String getConnections(String from, String to) {
 
 		try {
 			URL url = new URL("http://transport.opendata.ch/v1/connections?from="+from+"&to="+to);
@@ -23,12 +26,26 @@ public class APICaller {
 			
 			System.out.println(con.getURL());
 			
-			performApiCall();
-		
+			JSONObject json = new JSONObject(performApiCall());
+			JSONArray connections = json.getJSONArray("connections");
+			System.out.println(connections.toString());
+			JSONObject indexJson = connections.getJSONObject(0);
+			System.out.println(indexJson.toString());
+			JSONObject fromJson = indexJson.getJSONObject("from");
+			System.out.println(fromJson.toString());
+			String time = fromJson.getString("departure");
+			
+			JSONArray products = indexJson.getJSONArray("products");
+			
+			String zugName = products.getString(0);
+
 			con.disconnect();
+
+			return zugName + " " + time;
 			
 		} catch (IOException e) {
 			e.printStackTrace();
+			return null;
 		}
 		
 	}
@@ -48,9 +65,8 @@ public class APICaller {
 		in.close();
 		
 		String response = content.toString();
-		System.out.println(response);
 		
-		return content.toString();
+		return response;
 	}
 	
 }

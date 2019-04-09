@@ -34,7 +34,8 @@ public class MainWindowController {
     
     @FXML
     void searchConnections(ActionEvent event) {
-    	apiCaller.getConnections(fromTxtField.getText(), toTxtField.getText());
+    	String zugInfo = apiCaller.getConnections(fromTxtField.getText(), toTxtField.getText());
+    	System.out.println(zugInfo);
     }
 
     @FXML

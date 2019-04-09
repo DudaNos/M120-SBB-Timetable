@@ -11,5 +11,6 @@
 			<attribute name="module" value="true"/>
 		</attributes>
 	</classpathentry>
+	<classpathentry kind="lib" path="C:/Tools/JsonConverter Java/json-20180813.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
