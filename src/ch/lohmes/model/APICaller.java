@@ -5,20 +5,32 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.TimeZone;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
 
 public class APICaller {
-
+	
 	private HttpURLConnection con;
 	
 	public APICaller() {
 		
 	}
 	
-	public String getConnections(String from, String to) {
+	public List<String> getConnections(String from, String to) {
 
+		var trains = new LinkedList<String>();
+		
+		if(from ==  null || to == null) {
+			return null;
+		}
+		
 		try {
 			URL url = new URL("http://transport.opendata.ch/v1/connections?from="+from+"&to="+to);
 			con = (HttpURLConnection) url.openConnection();
@@ -26,24 +38,53 @@ public class APICaller {
 			
 			System.out.println(con.getURL());
 			
-			JSONObject json = new JSONObject(performApiCall());
-			JSONArray connections = json.getJSONArray("connections");
-			System.out.println(connections.toString());
-			JSONObject indexJson = connections.getJSONObject(0);
-			System.out.println(indexJson.toString());
-			JSONObject fromJson = indexJson.getJSONObject("from");
-			System.out.println(fromJson.toString());
-			String time = fromJson.getString("departure");
+			String result = performApiCall();
 			
-			JSONArray products = indexJson.getJSONArray("products");
+			if(result == null) {
+				return null;
+			}
 			
-			String zugName = products.getString(0);
+			JSONObject json = new JSONObject();
+			
+			for(int i = 0; i < json.length(); i++) {
+				// Get all connections from json
+				JSONArray connections = json.getJSONArray("connections");
+				
+				// Get one object off the json array
+				JSONObject indexJson = connections.getJSONObject(i);
+				
+				// Get departure location
+				JSONObject fromJson = indexJson.getJSONObject("from");
+				System.out.println(fromJson);
+				
+				// Get Platform number
+				String platform = fromJson.getString("platform");
+				
+				// Get departure time
+				String timeStamp = fromJson.getString("departure");
+				
+				SimpleDateFormat parser = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssX");
+		        parser.setTimeZone(TimeZone.getTimeZone("UTC"));
+		        Date parsed = parser.parse(timeStamp);
+		        
+		        String time = new SimpleDateFormat("H:mm").format(parsed);
+				
+				// Inside the products array there are all the trains for the connection
+				JSONArray products = indexJson.getJSONArray("products");
+				// We only require the first in the array (the train leaving from our location)
+				String zugName = products.getString(0);
+				
+				trains.add("Zug: " + zugName + "\t\tAbfahrt: " + time + "\t\tGleis: " + platform);
+			}
 
 			con.disconnect();
-
-			return zugName + " " + time;
+			
+			return trains;
 			
 		} catch (IOException e) {
+			e.printStackTrace();
+			return null;
+		} catch (ParseException e) {
 			e.printStackTrace();
 			return null;
 		}
