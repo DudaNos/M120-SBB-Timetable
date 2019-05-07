@@ -28,11 +28,12 @@ public class APICaller {
 		var trains = new LinkedList<String>();
 		
 		if(from ==  null || to == null) {
+			System.out.println("No input");
 			return null;
 		}
 		
 		try {
-			URL url = new URL("http://transport.opendata.ch/v1/connections?from="+from+"&to="+to);
+			URL url = new URL("http://transport.opendata.ch/v1/connections?from="+from+"&to="+to+"&limit=16");
 			con = (HttpURLConnection) url.openConnection();
 			con.setRequestMethod("GET");
 			
@@ -41,14 +42,15 @@ public class APICaller {
 			String result = performApiCall();
 			
 			if(result == null) {
+				System.out.println("No response from the server");
 				return null;
 			}
 			
-			JSONObject json = new JSONObject();
+			JSONObject json = new JSONObject(result);
+			// Get all connections from json
+			JSONArray connections = json.getJSONArray("connections");
 			
-			for(int i = 0; i < json.length(); i++) {
-				// Get all connections from json
-				JSONArray connections = json.getJSONArray("connections");
+			for(int i = 0; i < connections.length(); i++) {
 				
 				// Get one object off the json array
 				JSONObject indexJson = connections.getJSONObject(i);
@@ -107,6 +109,7 @@ public class APICaller {
 		
 		String response = content.toString();
 		
+		System.out.println(response);
 		return response;
 	}
 	

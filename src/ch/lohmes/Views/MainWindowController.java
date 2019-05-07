@@ -15,6 +15,7 @@ import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Background;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 
@@ -67,7 +68,9 @@ public class MainWindowController {
                     if (item != null) {
                         setText(item);
                         setFont(Font.font(16));
-                        setTextFill(Color.BLACK);
+                        setTextFill(Color.WHITE);
+                        setStyle("-fx-background-color: red;"
+                        		+ "-fx-font-weight: bold;");
                     }
                 }
             };
